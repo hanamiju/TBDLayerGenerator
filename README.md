@@ -1,4 +1,4 @@
 # TBDLayerGenerator
 Generate TBD Layer
 
-![image](https://raw.githubusercontent.com/hanamiju/TBDLayerGenerator/master/image.gif "image")
+![image](https://github.com/hanamiju/TBDLayerGenerator/blob/master/example/image.gif "image")
