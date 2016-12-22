@@ -1,0 +1,37 @@
+var layerName = "TBD";
+var imageFileName = "tbd.png";
+
+var onRun = function(context) {
+    var plugin = context.plugin
+    var imageFilePath = plugin.urlForResourceNamed(imageFileName)
+    var imageData = NSData.dataWithContentsOfURL(imageFilePath)
+    var image = NSImage.alloc().initWithData(imageData)
+
+	generate(context, image)
+};
+
+function generate(context, image) {
+	var layers = context.selection
+	var doc = context.document;
+	var artboard = doc.currentPage().currentArtboard();
+
+	for(var i = 0; i < layers.length; i++){
+		var layer = layers[i];
+		var rect = layer.rect()
+		var shape = MSShapeGroup.shapeWithRect( rect );
+
+		shape.setName(layerName)
+		
+		var fill = shape.style().addStylePartOfType( 0 );
+		fill.setFillType(4);
+		fill.setImage(MSImageData.alloc().initWithImage_convertColorSpace(image, false));
+		fill.setPatternFillType(3);
+		
+		if (artboard != nil) {
+			artboard.addLayers( [shape] );
+		} else {
+			doc.addLayer(shape);
+		}
+		shape.rect = layer.rect()
+	}
+}
